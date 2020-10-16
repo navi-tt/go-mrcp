@@ -2,6 +2,7 @@ package engine
 
 import (
 	"github.com/navi-tt/go-mrcp/apr"
+	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 )
 
@@ -19,10 +20,10 @@ type MRCPEngine struct {
 	Config          *MRCPEngineConfig // Config of engine
 	CurChannelCount int64             // Number of simultaneous channels currently in use
 	IsOpen          bool              // Is engine successfully opened
-	pool            *apr.AprPool      // Pool to allocate memory from
+	pool            *memory.AprPool   // Pool to allocate memory from
 
 	/** Create state machine */
-	CreateStateMachine func(obj interface{}, version mrcp.Version, pool *apr.AprPool) *MRCPStateMachine
+	CreateStateMachine func(obj interface{}, version mrcp.Version, pool *memory.AprPool) *MRCPStateMachine
 }
 
 /** Table of MRCP engine virtual methods */
@@ -37,7 +38,7 @@ type MRCPEngineMethodVTable struct {
 	Close func(engine *MRCPEngine) bool
 
 	/** Virtual channel create */
-	CreateChannel func(engine *MRCPEngine, pool *apr.AprPool) MRCPEngineChannel
+	CreateChannel func(engine *MRCPEngine, pool *memory.AprPool) MRCPEngineChannel
 }
 
 /** Table of MRCP engine virtual event handlers */
@@ -51,7 +52,7 @@ type MRCPEngineEventVTable struct {
 
 /** Opaque codec manager declaration */
 type MpfCodecManager struct {
-	pool *apr.AprPool // Memory pool
+	pool *memory.AprPool // Memory pool
 
 	CodecArr []apr.AprArrayHeader // Dynamic (resizable) array of codecs (mpf_codec_t*
 

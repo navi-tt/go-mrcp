@@ -1,6 +1,6 @@
 package mrcp
 
-type Version int
+type Version = int
 
 const (
 	MRCP_VERSION_UNKNOWN Version = iota

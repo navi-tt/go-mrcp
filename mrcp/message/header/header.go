@@ -1,8 +1,8 @@
 package header
 
 import (
-	"github.com/navi-tt/go-mrcp/apr"
 	apr_toolkit "github.com/navi-tt/go-mrcp/apr-toolkit"
+	"github.com/navi-tt/go-mrcp/apr/memory"
 )
 
 /** MRCP channel-identifier */
@@ -27,16 +27,16 @@ type MRCPHeaderAccessor struct {
 /** MRCP header accessor interface */
 type MRCPHeaderVTable struct {
 	/** Allocate actual header data */
-	Allocate func(accessor *MRCPHeaderAccessor, pool *apr.AprPool) interface{}
+	Allocate func(accessor *MRCPHeaderAccessor, pool *memory.AprPool) interface{}
 	/** Destroy header data */
 	Destroy func(accessor *MRCPHeaderAccessor)
 
 	/** Parse header field value */
-	ParseField func(accessor *MRCPHeaderAccessor, id int64, value string, pool *apr.AprPool) bool
+	ParseField func(accessor *MRCPHeaderAccessor, id int64, value string, pool *memory.AprPool) bool
 	/** Generate header field value */
-	GenerateField func(accessor *MRCPHeaderAccessor, id int64, value string, pool *apr.AprPool) bool
+	GenerateField func(accessor *MRCPHeaderAccessor, id int64, value string, pool *memory.AprPool) bool
 	/** Duplicate header field value */
-	DuplicateField func(accessor *MRCPHeaderAccessor, src *MRCPHeaderAccessor, id int64, value string, pool *apr.AprPool) bool
+	DuplicateField func(accessor *MRCPHeaderAccessor, src *MRCPHeaderAccessor, id int64, value string, pool *memory.AprPool) bool
 
 	FieldTable map[string]string // Table of fields
 	//FieldCount int64             // Number of fields

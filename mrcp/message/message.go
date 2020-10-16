@@ -1,8 +1,8 @@
 package message
 
 import (
-	"github.com/navi-tt/go-mrcp/apr"
-	"github.com/navi-tt/go-mrcp/mrcp/control"
+	"github.com/navi-tt/go-mrcp/apr/memory"
+	"github.com/navi-tt/go-mrcp/mrcp/control/resource"
 	"github.com/navi-tt/go-mrcp/mrcp/message/header"
 )
 
@@ -13,6 +13,6 @@ type MRCPMessage struct {
 	Header    header.MRCPMessageHeader // Header of MRCP message
 	Body      string                   // Body of MRCP message
 
-	Resource control.MRCPResource // Associated MRCP resource
-	pool     *apr.AprPool         //  Memory pool to allocate memory from
+	Resource resource.MRCPResource // Associated MRCP resource
+	pool     *memory.AprPool       //  Memory pool to allocate memory from
 }
