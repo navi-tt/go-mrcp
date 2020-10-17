@@ -27,7 +27,8 @@ const (
 	GENERIC_HEADER_FETCH_TIMEOUT
 	GENERIC_HEADER_SET_COOKIE
 	GENERIC_HEADER_SET_COOKIE2
-	GENERIC_HEADER_COUN
+
+	GENERIC_HEADER_COUNT
 )
 
 const __MAX_ACTIVE_REQUEST_ID_COUNT = 5
@@ -75,16 +76,16 @@ type MRCPGenericHeader struct {
 }
 
 /** Get generic header vtable */
-func MRCPGetGenericHeaderVTableGet(version mrcp.Version) *MRCPGenericHeader {
+func MRCPGetGenericHeaderVTableGet(version mrcp.Version) *MRCPHeaderVTable {
 	return nil
 }
 
 /** Append active request id list */
-func ActiveRequestIdListAppend(genericHeader *MRCPGenericHeader, requestId mrcp.MRCPRequestId) error {
+func (h *MRCPGenericHeader) ActiveRequestIdListAppend(requestId mrcp.MRCPRequestId) error {
 	return nil
 }
 
 /** Find request id in active request id list */
-func ActiveRequestIdListFind(genericHeader *MRCPGenericHeader, requestId mrcp.MRCPRequestId) error {
+func (h *MRCPGenericHeader) ActiveRequestIdListFind(requestId mrcp.MRCPRequestId) error {
 	return nil
 }

@@ -1,6 +1,8 @@
 package apr_toolkit
 
-import "container/ring"
+import (
+	"container/list"
+)
 
 /**
  * Header section
@@ -9,6 +11,7 @@ import "container/ring"
  * The goal is to ensure efficient access and manipulation on the header fields.
  */
 type AptHeaderSection struct {
-	Ring ring.Ring         // List of header fields (name-value pairs), Ring 的 Value 就是 *AptHeaderField
-	Arr  []*AptHeaderField // Array of pointers to header fields
+	//todo(是否换成container.List)
+	Ring *list.List      // List of header fields (name-value pairs), Ring 的 Value 就是 *AptHeaderField
+	Arr  []*list.Element // Array of pointers to header fields
 }
