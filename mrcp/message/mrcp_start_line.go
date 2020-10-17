@@ -1,9 +1,9 @@
 package message
 
 import (
-	apr_toolkit "github.com/navi-tt/go-mrcp/apr-toolkit"
 	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
+	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
 type MRCPStartLine struct {
@@ -28,12 +28,12 @@ func (statLine *MRCPStartLine) MRCPStartLineParse(str string, pool *memory.AprPo
 }
 
 /** Generate MRCP start-line */
-func (statLine *MRCPStartLine) MRCPStartLineGenerate(textStream *apr_toolkit.AptTextStream) error {
+func (statLine *MRCPStartLine) MRCPStartLineGenerate(textStream *toolkit.AptTextStream) error {
 	return nil
 }
 
 /** Finalize MRCP start-line generation */
-func (statLine *MRCPStartLine) MRCPStartLineFinalize(contentLength int64, textStream *apr_toolkit.AptTextStream) error {
+func (statLine *MRCPStartLine) MRCPStartLineFinalize(contentLength int64, textStream *toolkit.AptTextStream) error {
 	return nil
 }
 
@@ -43,6 +43,6 @@ func MRCPRequestIdParse(field string) mrcp.MRCPRequestId {
 }
 
 /** Generate MRCP request-id */
-func MRCPRequestIdGenerate(rid mrcp.MRCPRequestId, stream *apr_toolkit.AptTextStream) error {
+func MRCPRequestIdGenerate(rid mrcp.MRCPRequestId, stream *toolkit.AptTextStream) error {
 	return nil
 }

@@ -1,4 +1,4 @@
-package apr_toolkit
+package toolkit
 
 /** Text stream is used for message parsing and generation */
 type AptTextStream struct {

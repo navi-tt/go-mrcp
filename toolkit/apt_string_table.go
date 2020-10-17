@@ -1,4 +1,4 @@
-package apr_toolkit
+package toolkit
 
 type AptStrTableItem struct {
 	Key   string

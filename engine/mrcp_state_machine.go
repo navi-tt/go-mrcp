@@ -8,12 +8,12 @@ type MRCPStateMachine struct {
 	Active bool        // State either active or deactivating
 
 	/** Virtual update */
-	Update func(stateMachine *MRCPStateMachine, message *message.MRCPMessage) bool
+	Update func(machine *MRCPStateMachine, message *message.MRCPMessage) bool
 	/** Deactivate */
-	Deactivate func(stateMachine *MRCPStateMachine) bool
+	Deactivate func(machine *MRCPStateMachine) bool
 
 	/** Message dispatcher */
-	OnDispatch func(stateMachine *MRCPStateMachine, message *message.MRCPMessage) bool
+	OnDispatch func(machine *MRCPStateMachine, message *message.MRCPMessage) bool
 	/** Deactivated */
-	OnDeactivate func(stateMachine *MRCPStateMachine) bool
+	OnDeactivate func(machine *MRCPStateMachine) bool
 }

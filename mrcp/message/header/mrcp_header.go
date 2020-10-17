@@ -1,8 +1,8 @@
 package header
 
 import (
-	apr_toolkit "github.com/navi-tt/go-mrcp/apr-toolkit"
 	"github.com/navi-tt/go-mrcp/apr/memory"
+	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
 /** MRCP channel-identifier */
@@ -13,9 +13,9 @@ type MRCPChannelId struct {
 
 /** MRCP message-header */
 type MRCPMessageHeader struct {
-	GenericHeaderAccessor  MRCPHeaderAccessor           // MRCP generic-header
-	ResourceHeaderAccessor MRCPHeaderAccessor           // MRCP resource specific header
-	HeaderSection          apr_toolkit.AptHeaderSection // Header section (collection of header fields)
+	GenericHeaderAccessor  MRCPHeaderAccessor       // MRCP generic-header
+	ResourceHeaderAccessor MRCPHeaderAccessor       // MRCP resource specific header
+	HeaderSection          toolkit.AptHeaderSection // Header section (collection of header fields)
 }
 
 /** Initialize MRCP message-header */
@@ -23,7 +23,7 @@ func (header *MRCPMessageHeader) MRCPMessageHeaderInit() {
 	MRCPHeaderAccessorInit(&header.GenericHeaderAccessor)
 	MRCPHeaderAccessorInit(&header.ResourceHeaderAccessor)
 	// todo(AptHeaderSectionInit ring 初始化得再确认下)
-	apr_toolkit.AptHeaderSectionInit(&header.HeaderSection)
+	toolkit.AptHeaderSectionInit(&header.HeaderSection)
 }
 
 /** Allocate MRCP message-header data */
@@ -43,7 +43,7 @@ func (header *MRCPMessageHeader) MRCPMessageHeaderDestroy() {
 }
 
 /** Add MRCP header field */
-func (header *MRCPMessageHeader) MRCPHeaderFieldAdd(field *apr_toolkit.AptHeaderField, pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPHeaderFieldAdd(field *toolkit.AptHeaderField, pool *memory.AprPool) error {
 	return nil
 }
 
@@ -78,6 +78,6 @@ func (cid *MRCPChannelId) MRCPChannelIdParse(header *MRCPMessageHeader, pool *me
 }
 
 /** Generate MRCP channel-identifier */
-func (cid *MRCPChannelId) MRCPChannelIdGenerate(textStream *apr_toolkit.AptTextStream) error {
+func (cid *MRCPChannelId) MRCPChannelIdGenerate(textStream *toolkit.AptTextStream) error {
 	return nil
 }

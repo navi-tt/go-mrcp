@@ -1,8 +1,8 @@
 package header
 
 import (
-	apr_toolkit "github.com/navi-tt/go-mrcp/apr-toolkit"
 	"github.com/navi-tt/go-mrcp/apr/memory"
+	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
 /** MRCP header accessor interface */
@@ -78,12 +78,12 @@ func MRCPHeaderDestroy(accessor *MRCPHeaderAccessor) {
 }
 
 /** Parse header field value */
-func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueParse(field *apr_toolkit.AptHeaderField, pool *memory.AprPool) error {
+func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueParse(field *toolkit.AptHeaderField, pool *memory.AprPool) error {
 	return nil
 }
 
 /** Generate header field value */
-func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueGenerate(id int64, emptyValue bool, pool *memory.AprPool) *apr_toolkit.AptHeaderField {
+func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueGenerate(id int64, emptyValue bool, pool *memory.AprPool) *toolkit.AptHeaderField {
 	return nil
 }
 

@@ -1,4 +1,4 @@
-package apr_toolkit
+package toolkit
 
 import (
 	"container/list"

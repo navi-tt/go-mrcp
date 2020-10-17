@@ -1,4 +1,4 @@
-package apr_toolkit
+package toolkit
 
 /** Stage of text message processing (parsing/generation) */
 type AptMessageStage = int

@@ -1,10 +1,10 @@
 package resource
 
 import (
-	apr_toolkit "github.com/navi-tt/go-mrcp/apr-toolkit"
 	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/message/header"
+	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
 type MRCPResource struct {
@@ -12,11 +12,11 @@ type MRCPResource struct {
 	Name string              // MRCP resource name
 
 	/** Get string table of methods */
-	GetMethodStrTable func(version mrcp.Version) apr_toolkit.AptStrTableItem
+	GetMethodStrTable func(version mrcp.Version) toolkit.AptStrTableItem
 	MethodCount       int64 // Number of methods
 
 	/** Get string table of events */
-	GetEventStrTable func(version mrcp.Version) apr_toolkit.AptStrTableItem
+	GetEventStrTable func(version mrcp.Version) toolkit.AptStrTableItem
 	EventCount       int64 // Number of events
 
 	/** Get vtable of resource header */

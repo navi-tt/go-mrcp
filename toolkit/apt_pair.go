@@ -1,4 +1,4 @@
-package apr_toolkit
+package toolkit
 
 import "github.com/navi-tt/go-mrcp/apr"
 

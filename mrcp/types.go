@@ -8,6 +8,18 @@ const (
 	MRCP_VERSION_2
 )
 
+/** Enumeration of MRCP resource types */
+type MRCPResourceType = int
+
+const (
+	MRCP_SYNTHESIZER_RESOURCE MRCPResourceType = iota /**< Synthesizer resource */
+	MRCP_RECOGNIZER_RESOURCE                          /**< Recognizer resource */
+	MRCP_RECORDER_RESOURCE                            /**< Recorder resource */
+	MRCP_VERIFIER_RESOURCE                            /**< Verifier resource */
+
+	MRCP_RESOURCE_TYPE_COUNT /**< Number of resources */
+)
+
 /** MRCP request identifier */
 type MRCPRequestId = uint32
 
@@ -15,4 +27,4 @@ type MRCPRequestId = uint32
 type MRCPMethodId = int64
 
 /** Resource identifier associated with resource name */
-type MRCPResourceId = int64
+type MRCPResourceId = int

@@ -1,11 +1,11 @@
 package message
 
 import (
-	apr_toolkit "github.com/navi-tt/go-mrcp/apr-toolkit"
 	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/control/resource"
 	"github.com/navi-tt/go-mrcp/mrcp/message/header"
+	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
 /** MRCP message */
@@ -201,7 +201,7 @@ func (m *MRCPMessage) MRCPResourceHeaderPropertyCheck(id int64) bool {
  * @param message the message to add header field for
  * @param header_field the header field to add
  */
-func (m *MRCPMessage) MRCPMessageHeaderFieldAdd(headerField *apr_toolkit.AptHeaderField) error {
+func (m *MRCPMessage) MRCPMessageHeaderFieldAdd(headerField *toolkit.AptHeaderField) error {
 	return m.Header.MRCPHeaderFieldAdd(headerField, m.pool)
 }
 
@@ -215,6 +215,6 @@ func (m *MRCPMessage) MRCPMessageHeaderFieldAdd(headerField *apr_toolkit.AptHead
  *	while( (header_field = mrcp_message_next_header_field_get(message,header_field)) != NULL ) {
  *  }
  */
-func (m *MRCPMessage) MRCPMessageNextHeaderFieldGet(headerField *apr_toolkit.AptHeaderField) *apr_toolkit.AptHeaderField {
+func (m *MRCPMessage) MRCPMessageNextHeaderFieldGet(headerField *toolkit.AptHeaderField) *toolkit.AptHeaderField {
 	return nil
 }
