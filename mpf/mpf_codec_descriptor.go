@@ -14,3 +14,11 @@ type MPFCodecDescriptor struct {
 	Format       string // Codec dependent additional format
 	Enabled      bool   // Enabled/disabled state
 }
+
+/** Codec frame */
+type MPFCodecFrame struct {
+	/** Raw buffer, which may contain encoded or decoded data */
+	buffer interface{}
+	/** Buffer size */
+	size int64
+}

@@ -63,9 +63,9 @@ type MRCPEngineMethodVTable struct {
 /** Table of MRCP engine virtual event handlers */
 type MRCPEngineEventVTable struct {
 	/** Open event handler */
-	OnOpen func(channel *MRCPEngine, status bool) error
+	OnOpen func(engine *MRCPEngine, status bool) error
 	/** Close event handler */
-	OnClose func(channel *MRCPEngine) error
+	OnClose func(engine *MRCPEngine) error
 }
 
 /** MRCP engine */
