@@ -6,7 +6,7 @@ package mpf
  */
 
 /** Codec descriptor */
-type MPFCodecDescriptor struct {
+type CodecDescriptor struct {
 	PayloadType  uint8  // Payload type used in RTP packet
 	Name         string // Codec name
 	SamplingRate uint16 // Sampling rate
@@ -16,7 +16,7 @@ type MPFCodecDescriptor struct {
 }
 
 /** Codec frame */
-type MPFCodecFrame struct {
+type CodecFrame struct {
 	/** Raw buffer, which may contain encoded or decoded data */
 	buffer interface{}
 	/** Buffer size */
