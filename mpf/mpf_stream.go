@@ -1,38 +1,38 @@
 package mpf
 
 /** Table of audio stream virtual methods */
-type MPFAudioStreamVTable struct {
+type AudioStreamVTable struct {
 
 	/** Virtual destroy method */
-	Destroy func(stream *MPFAudioStream) error
+	Destroy func(stream *AudioStream) error
 
 	/** Virtual open receiver method */
-	OpenRX func(stream *MPFAudioStream, codec *MPFCodec) error
+	OpenRX func(stream *AudioStream, codec *Codec) error
 	/** Virtual close receiver method */
-	CloseRX func(stream *MPFAudioStream) error
+	CloseRX func(stream *AudioStream) error
 	/** Virtual read frame method */
-	ReadFrame func(stream *MPFAudioStream, frame *MPFFrame) error
+	ReadFrame func(stream *AudioStream, frame *Frame) error
 
 	/** Virtual open transmitter method */
-	OpenTX func(stream *MPFAudioStream, codec *MPFCodec) error
+	OpenTX func(stream *AudioStream, codec *Codec) error
 	/** Virtual close transmitter method */
-	CloseTX func(stream *MPFAudioStream) error
+	CloseTX func(stream *AudioStream) error
 	/** Virtual write frame method */
-	WriteFrame func(stream *MPFAudioStream, frame *MPFFrame) error
+	WriteFrame func(stream *AudioStream, frame *Frame) error
 
 	/** Virtual trace method */
 	//Trace func(mpf_audio_stream_t *stream, mpf_stream_direction_e direction, apt_text_stream_t *output);
 }
 
 /** Audio stream */
-type MPFAudioStream struct {
+type AudioStream struct {
 
 	/** External object */
 	Obj interface{}
 	/** Table of virtual methods */
-	VTable *MPFAudioStreamVTable
+	VTable *AudioStreamVTable
 	/** Back pointer */
-	termination *MPFTermination
+	termination *Termination
 
 	/** Stream capabilities */
 	//const mpf_stream_capabilities_t *capabilities;
@@ -40,11 +40,11 @@ type MPFAudioStream struct {
 	//mpf_stream_direction_e           direction;
 
 	/** Rx codec descriptor */
-	RXDescriptor *MPFCodecDescriptor
+	RXDescriptor *CodecDescriptor
 	/** Rx event descriptor */
-	RXEventDescriptor *MPFCodecDescriptor
+	RXEventDescriptor *CodecDescriptor
 	/** Tx codec descriptor */
-	TXDescriptor *MPFCodecDescriptor
+	TXDescriptor *CodecDescriptor
 	/** Tx event descriptor */
-	TXEventDescriptor *MPFCodecDescriptor
+	TXEventDescriptor *CodecDescriptor
 }

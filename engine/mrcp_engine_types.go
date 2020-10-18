@@ -37,7 +37,7 @@ type MRCPEngineChannel struct {
 	MethodObj    interface{}                    // External object used with virtual methods
 	EventVTable  *MRCPEngineChannelEventVTable  // Table of virtual event handlers
 	EventObj     interface{}                    // External object used with event handlers
-	Termination  *mpf.MPFTermination            // Media termination todo(未完成)
+	Termination  *mpf.Termination            // Media termination todo(未完成)
 	engine       *MRCPEngine                    // Back pointer to engine
 	Id           string                         // Unique identifier to be used in traces
 	Version      mrcp.Version                   // MRCP version
@@ -78,7 +78,7 @@ type MRCPEngine struct {
 	EventVTable  *MRCPEngineEventVTable  // Table of virtual event handlers
 	eventObj     interface{}             // External object used with event handlers
 
-	CodecManager    *mpf.MPFCodecManager  // Codec manager
+	CodecManager    *mpf.CodecManager  // Codec manager
 	DirLayout       *toolkit.AptDirLayout // Dir layout structure
 	Config          *MRCPEngineConfig     // Config of engine
 	CurChannelCount int64                 // Number of simultaneous channels currently in use

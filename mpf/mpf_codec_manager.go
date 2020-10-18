@@ -11,10 +11,10 @@ import (
  */
 
 /** Opaque codec manager declaration */
-type MPFCodecManager struct {
+type CodecManager struct {
 	pool *memory.AprPool // Memory pool
 
 	CodecArr []apr.AprArrayHeader // Dynamic (resizable) array of codecs (mpf_codec_t*
 
-	EventDescriptor *MPFCodecDescriptor // Default named event descriptor
+	EventDescriptor *CodecDescriptor // Default named event descriptor
 }

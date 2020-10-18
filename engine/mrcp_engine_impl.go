@@ -33,28 +33,28 @@ func (engine *MRCPEngine) MRCPEngineParamGet(name string) string {
 }
 
 /** Create engine channel */
-func (engine *MRCPEngine) MRCPEngineChannelCreate(methodVTable *MRCPEngineMethodVTable, methodObj interface{}, termination *mpf.MPFTermination, pool *memory.AprPool) *MRCPEngineChannel {
+func (engine *MRCPEngine) MRCPEngineChannelCreate(methodVTable *MRCPEngineMethodVTable, methodObj interface{}, termination *mpf.Termination, pool *memory.AprPool) *MRCPEngineChannel {
 	return nil
 }
 
 /** Create audio termination */
-func MRCPEngineAudioTerminationCreate(obj interface{}, streamVTable *mpf.MPFAudioStreamVTable, capabilities *mpf.MPFStreamCapabilities, pool *memory.AprPool) *mpf.MPFTermination {
+func MRCPEngineAudioTerminationCreate(obj interface{}, streamVTable *mpf.AudioStreamVTable, capabilities *mpf.StreamCapabilities, pool *memory.AprPool) *mpf.Termination {
 	return nil
 }
 
 /** Create engine channel and source media termination
  * @deprecated @see mrcp_engine_channel_create() and mrcp_engine_audio_termination_create()
  */
-func (engine *MRCPEngine) MRCPEngineSourceChannelCreate(channelVTable *MRCPEngineChannelMethodVTable, streamVTable *mpf.MPFAudioStreamVTable,
-	methodObj interface{}, codecDescriptor *mpf.MPFCodecDescriptor, pool *memory.AprPool) *MRCPEngineChannel {
+func (engine *MRCPEngine) MRCPEngineSourceChannelCreate(channelVTable *MRCPEngineChannelMethodVTable, streamVTable *mpf.AudioStreamVTable,
+	methodObj interface{}, codecDescriptor *mpf.CodecDescriptor, pool *memory.AprPool) *MRCPEngineChannel {
 	return nil
 }
 
 /** Create engine channel and sink media termination
  * @deprecated @see mrcp_engine_channel_create() and mrcp_engine_audio_termination_create()
  */
-func (engine *MRCPEngine) MRCPEngineSinkChannelCreate(channelVTable *MRCPEngineChannelMethodVTable, streamVTable *mpf.MPFAudioStreamVTable,
-	methodObj interface{}, codecDescriptor *mpf.MPFCodecDescriptor, pool *memory.AprPool) *MRCPEngineChannel {
+func (engine *MRCPEngine) MRCPEngineSinkChannelCreate(channelVTable *MRCPEngineChannelMethodVTable, streamVTable *mpf.AudioStreamVTable,
+	methodObj interface{}, codecDescriptor *mpf.CodecDescriptor, pool *memory.AprPool) *MRCPEngineChannel {
 	return nil
 }
 
@@ -84,11 +84,11 @@ func (channel *MRCPEngineChannel) MRCPEngineChannelVersionGet() mrcp.Version {
 }
 
 /** Get codec descriptor of the audio source stream */
-func (channel *MRCPEngineChannel) MRCPEngineSourceStreamCodecGet() *mpf.MPFCodecDescriptor {
+func (channel *MRCPEngineChannel) MRCPEngineSourceStreamCodecGet() *mpf.CodecDescriptor {
 	return nil
 }
 
 /** Get codec descriptor of the audio sink stream */
-func (channel *MRCPEngineChannel) MRCPEngineSinkStreamCodecGet() *mpf.MPFCodecDescriptor {
+func (channel *MRCPEngineChannel) MRCPEngineSinkStreamCodecGet() *mpf.CodecDescriptor {
 	return nil
 }
