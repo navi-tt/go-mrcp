@@ -2,7 +2,6 @@ package engine
 
 import (
 	"github.com/navi-tt/go-mrcp/apr"
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mpf"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/message"
@@ -37,12 +36,12 @@ type MRCPEngineChannel struct {
 	MethodObj    interface{}                    // External object used with virtual methods
 	EventVTable  *MRCPEngineChannelEventVTable  // Table of virtual event handlers
 	EventObj     interface{}                    // External object used with event handlers
-	Termination  *mpf.Termination            // Media termination todo(未完成)
+	Termination  *mpf.Termination               // Media termination todo(未完成)
 	engine       *MRCPEngine                    // Back pointer to engine
 	Id           string                         // Unique identifier to be used in traces
 	Version      mrcp.Version                   // MRCP version
 	IsOpen       bool                           // Is channel successfully opened
-	pool         *memory.AprPool                // Pool to allocate memory from
+	//pool         *memory.AprPool                // Pool to allocate memory from
 }
 
 /** Table of MRCP engine virtual methods */
@@ -57,7 +56,7 @@ type MRCPEngineMethodVTable struct {
 	Close func(engine *MRCPEngine) error
 
 	/** Virtual channel create */
-	CreateChannel func(engine *MRCPEngine, pool *memory.AprPool) MRCPEngineChannel
+	CreateChannel func(engine *MRCPEngine) MRCPEngineChannel
 }
 
 /** Table of MRCP engine virtual event handlers */
@@ -78,15 +77,15 @@ type MRCPEngine struct {
 	EventVTable  *MRCPEngineEventVTable  // Table of virtual event handlers
 	eventObj     interface{}             // External object used with event handlers
 
-	CodecManager    *mpf.CodecManager  // Codec manager
+	CodecManager    *mpf.CodecManager     // Codec manager
 	DirLayout       *toolkit.AptDirLayout // Dir layout structure
 	Config          *MRCPEngineConfig     // Config of engine
 	CurChannelCount int64                 // Number of simultaneous channels currently in use
 	IsOpen          bool                  // Is engine successfully opened
-	pool            *memory.AprPool       // Pool to allocate memory from
+	//pool            *memory.AprPool       // Pool to allocate memory from
 
 	/** Create state machine */
-	CreateStateMachine func(obj interface{}, version mrcp.Version, pool *memory.AprPool) *MRCPStateMachine
+	CreateStateMachine func(obj interface{}, version mrcp.Version) *MRCPStateMachine
 }
 
 /** MRCP engine config */

@@ -1,14 +1,13 @@
 package engine
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mpf"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/message"
 )
 
 /** Create engine */
-func MRCPEngineCreate(rid mrcp.MRCPResourceId, obj interface{}, vtable *MRCPEngineMethodVTable, pool *memory.AprPool) *MRCPEngine {
+func MRCPEngineCreate(rid mrcp.MRCPResourceId, obj interface{}, vtable *MRCPEngineMethodVTable) *MRCPEngine {
 	return &MRCPEngine{}
 }
 
@@ -33,12 +32,12 @@ func (engine *MRCPEngine) MRCPEngineParamGet(name string) string {
 }
 
 /** Create engine channel */
-func (engine *MRCPEngine) MRCPEngineChannelCreate(methodVTable *MRCPEngineMethodVTable, methodObj interface{}, termination *mpf.Termination, pool *memory.AprPool) *MRCPEngineChannel {
+func (engine *MRCPEngine) MRCPEngineChannelCreate(methodVTable *MRCPEngineMethodVTable, methodObj interface{}, termination *mpf.Termination) *MRCPEngineChannel {
 	return nil
 }
 
 /** Create audio termination */
-func MRCPEngineAudioTerminationCreate(obj interface{}, streamVTable *mpf.AudioStreamVTable, capabilities *mpf.StreamCapabilities, pool *memory.AprPool) *mpf.Termination {
+func MRCPEngineAudioTerminationCreate(obj interface{}, streamVTable *mpf.AudioStreamVTable, capabilities *mpf.StreamCapabilities) *mpf.Termination {
 	return nil
 }
 
@@ -46,7 +45,7 @@ func MRCPEngineAudioTerminationCreate(obj interface{}, streamVTable *mpf.AudioSt
  * @deprecated @see mrcp_engine_channel_create() and mrcp_engine_audio_termination_create()
  */
 func (engine *MRCPEngine) MRCPEngineSourceChannelCreate(channelVTable *MRCPEngineChannelMethodVTable, streamVTable *mpf.AudioStreamVTable,
-	methodObj interface{}, codecDescriptor *mpf.CodecDescriptor, pool *memory.AprPool) *MRCPEngineChannel {
+	methodObj interface{}, codecDescriptor *mpf.CodecDescriptor) *MRCPEngineChannel {
 	return nil
 }
 
@@ -54,7 +53,7 @@ func (engine *MRCPEngine) MRCPEngineSourceChannelCreate(channelVTable *MRCPEngin
  * @deprecated @see mrcp_engine_channel_create() and mrcp_engine_audio_termination_create()
  */
 func (engine *MRCPEngine) MRCPEngineSinkChannelCreate(channelVTable *MRCPEngineChannelMethodVTable, streamVTable *mpf.AudioStreamVTable,
-	methodObj interface{}, codecDescriptor *mpf.CodecDescriptor, pool *memory.AprPool) *MRCPEngineChannel {
+	methodObj interface{}, codecDescriptor *mpf.CodecDescriptor) *MRCPEngineChannel {
 	return nil
 }
 

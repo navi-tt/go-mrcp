@@ -295,6 +295,6 @@ func MRCPSynthCompletionCauseGet(cause MRCPSynthCompletionCause, v mrcp.Version)
 }
 
 /** Create MRCP synthesizer resource */
-func MRCPSynthResourceCreate(pool *memory.AprPool) *resource.MRCPResource {
+func MRCPSynthResourceCreate() *resource.MRCPResource {
 	return nil
 }

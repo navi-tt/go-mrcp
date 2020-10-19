@@ -3,8 +3,6 @@ package mpf
 import (
 	"container/list"
 	"sync"
-
-	"github.com/navi-tt/go-mrcp/apr/memory"
 )
 
 type Chunk struct {
@@ -17,12 +15,12 @@ type Buffer struct {
 	CurChunk           *Chunk
 	RemainingChunkSize int64
 	guard              sync.Mutex
-	pool               *memory.AprPool
-	size               int64 /* total size */
+	//pool               *memory.AprPool
+	size int64 /* total size */
 }
 
 /** Create buffer */
-func BufferCreate(pool *memory.AprPool) *Buffer {
+func BufferCreate() *Buffer {
 	return &Buffer{}
 }
 

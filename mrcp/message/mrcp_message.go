@@ -23,7 +23,7 @@ type MRCPMessage struct {
  * Create an MRCP message.
  * @param pool the pool to allocate memory from
  */
-func MRCPMessageCreate(pool *memory.AprPool) *MRCPMessage {
+func MRCPMessageCreate() *MRCPMessage {
 	return &MRCPMessage{}
 }
 
@@ -34,7 +34,7 @@ func MRCPMessageCreate(pool *memory.AprPool) *MRCPMessage {
  * @param method_id the MRCP resource specific method identifier
  * @param pool the pool to allocate memory from
  */
-func MRCPRequestCreate(res *resource.MRCPResource, v mrcp.Version, mid mrcp.MRCPMethodId, pool *memory.AprPool) *MRCPMessage {
+func MRCPRequestCreate(res *resource.MRCPResource, v mrcp.Version, mid mrcp.MRCPMethodId) *MRCPMessage {
 	return &MRCPMessage{}
 }
 
@@ -43,7 +43,7 @@ func MRCPRequestCreate(res *resource.MRCPResource, v mrcp.Version, mid mrcp.MRCP
  * @param request_message the MRCP request message to create a response for
  * @param pool the pool to allocate memory from
  */
-func MRCPResponseCreate(reqMessage *MRCPMessage, pool *memory.AprPool) *MRCPMessage {
+func MRCPResponseCreate(reqMessage *MRCPMessage) *MRCPMessage {
 	return &MRCPMessage{}
 }
 
@@ -53,7 +53,7 @@ func MRCPResponseCreate(reqMessage *MRCPMessage, pool *memory.AprPool) *MRCPMess
  * @param event_id the MRCP resource specific event identifier
  * @param pool the pool to allocate memory from
  */
-func MRCPEventCreate(reqMessage *MRCPMessage, evevtId mrcp.MRCPMethodId, pool *memory.AprPool) *MRCPMessage {
+func MRCPEventCreate(reqMessage *MRCPMessage, evevtId mrcp.MRCPMethodId) *MRCPMessage {
 	return &MRCPMessage{}
 }
 

@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 )
 
@@ -12,6 +11,6 @@ type MRCPResourceEngine = MRCPEngine
  * Create resource engine
  * @deprecated @see mrcp_engine_create
  */
-func MRCPResourceEngineCreate(rid mrcp.MRCPResourceId, obj interface{}, vTable *MRCPEngineMethodVTable, pool *memory.AprPool) *MRCPEngine {
-	return MRCPEngineCreate(rid, obj, vTable, pool)
+func MRCPResourceEngineCreate(rid mrcp.MRCPResourceId, obj interface{}, vTable *MRCPEngineMethodVTable) *MRCPEngine {
+	return MRCPEngineCreate(rid, obj, vTable)
 }

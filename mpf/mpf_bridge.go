@@ -1,7 +1,5 @@
 package mpf
 
-import "github.com/navi-tt/go-mrcp/apr/memory"
-
 /**
  * Create bridge of audio streams.
  * @param source the source audio stream
@@ -10,6 +8,6 @@ import "github.com/navi-tt/go-mrcp/apr/memory"
  * @param name the informative name used for debugging
  * @param pool the pool to allocate memory from
  */
-func BridgeCreate(source *AudioStream, sink *AudioStream, manager *CodecManager, name string, pool *memory.AprPool) *Object {
+func BridgeCreate(source *AudioStream, sink *AudioStream, manager *CodecManager, name string) *Object {
 	return nil
 }

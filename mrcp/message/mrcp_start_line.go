@@ -23,7 +23,7 @@ func MRCPStartLineInit(statLine *MRCPStartLine) error {
 }
 
 /** Parse MRCP start-line */
-func (statLine *MRCPStartLine) MRCPStartLineParse(str string, pool *memory.AprPool) (string, error) {
+func (statLine *MRCPStartLine) MRCPStartLineParse(str string) (string, error) {
 	return "", nil
 }
 

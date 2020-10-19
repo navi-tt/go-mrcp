@@ -1,4 +1,5 @@
 package engine
+
 //
 //import (
 //	"github.com/navi-tt/go-mrcp/apr/memory"
@@ -36,7 +37,7 @@ package engine
 //)
 //
 ///** Prototype of engine creator (entry point of plugin DSO) */
-//type MRCPPluginCreatorFunc func (pool *memory.AprPool)  *MRCPEngine
+//type MRCPPluginCreatorFunc func ()  *MRCPEngine
 //
 ///** Prototype of log accessor (entry point of plugin DSO) */
 //type  MRCPPluginLogAccessorFunc func(logger log.Logger)error

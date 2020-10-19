@@ -169,6 +169,6 @@ func MRCPVerifierCompletionCauseGet(cause MRCPVerifierCompletionCause, v mrcp.Ve
 }
 
 /** Create MRCP verifier resource */
-func MRCPVerifierResourceCreate(pool *memory.AprPool) *resource.MRCPResource {
+func MRCPVerifierResourceCreate() *resource.MRCPResource {
 	return nil
 }

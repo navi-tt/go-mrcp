@@ -4,7 +4,6 @@ import (
 	"container/list"
 	"fmt"
 
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 )
 
@@ -18,15 +17,15 @@ type MRCPEngineFactory struct {
 	/* C:apr_hash_t -> Go:map+list, key 用engine的Id */
 	enginesList *list.List
 	enginesMap  map[string]*list.Element
-	pool        *memory.AprPool
+	//pool        *memory.AprPool
 }
 
 /** Create engine factory */
-func MRCPEngineFactoryCreate(pool *memory.AprPool) *MRCPEngineFactory {
+func MRCPEngineFactoryCreate() *MRCPEngineFactory {
 	return &MRCPEngineFactory{
 		enginesList: list.New(),
 		enginesMap:  make(map[string]*list.Element),
-		pool:        &memory.AprPool{},
+		//pool:        &memory.AprPool{},
 	}
 }
 

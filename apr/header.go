@@ -1,12 +1,31 @@
 package apr
 
-import "github.com/navi-tt/go-mrcp/apr/memory"
-
 /** An opaque array type */
-type AprArrayHeader struct {
-	pool        *memory.AprPool // The pool the array is allocated out of
-	EltSize     int             // The amount of memory allocated for each element of the array
-	NumElt      int             // The number of active elements in the array
-	NumEltAlloc int             // The number of elements allocated in the array
-	Elements    string          //  The elements in the array
+type ArrayHeader struct {
+	Stack *Stack // todo(换成[]T)
+}
+
+func NewArrayHeader(n int) *ArrayHeader {
+	return &ArrayHeader{
+		Stack: NewStack(n),
+	}
+}
+
+func ArrayCopy(src *ArrayHeader) *ArrayHeader {
+	a := &ArrayHeader{
+		Stack: src.Stack.Clone(),
+	}
+	//
+	//for e := src.Stack.Pop(); e != nil; e = src.Stack.Pop() {
+	//	a.Stack.Push(e)
+	//}
+	return a
+}
+
+func (a *ArrayHeader) ArrayHeaderIndex(id int) interface{} {
+	return a.Stack.Index(id)
+}
+
+func (a *ArrayHeader) Append(ah *ArrayHeader) {
+	a.Stack.Append(ah.Stack)
 }

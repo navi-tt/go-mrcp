@@ -13,7 +13,7 @@ type MRCPResourceFactory struct {
 }
 
 /** Create MRCP resource factory */
-func MRCPResourceFactoryCreate(resourceCount int64, pool *memory.AprPool) *MRCPResourceFactory {
+func MRCPResourceFactoryCreate(resourceCount int64) *MRCPResourceFactory {
 	return &MRCPResourceFactory{}
 }
 

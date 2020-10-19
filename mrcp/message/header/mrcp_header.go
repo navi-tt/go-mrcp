@@ -27,12 +27,12 @@ func (header *MRCPMessageHeader) MRCPMessageHeaderInit() {
 }
 
 /** Allocate MRCP message-header data */
-func (header *MRCPMessageHeader) MRCPMessageHeaderDataAlloc(generic, resource *MRCPHeaderVTable, pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPMessageHeaderDataAlloc(generic, resource *MRCPHeaderVTable) error {
 	return nil
 }
 
 /** Create MRCP message-header */
-func MRCPMessageHeaderCreate(generic, resource *MRCPHeaderVTable, pool *memory.AprPool) *MRCPMessageHeader {
+func MRCPMessageHeaderCreate(generic, resource *MRCPHeaderVTable) *MRCPMessageHeader {
 	return nil
 }
 
@@ -43,27 +43,27 @@ func (header *MRCPMessageHeader) MRCPMessageHeaderDestroy() {
 }
 
 /** Add MRCP header field */
-func (header *MRCPMessageHeader) MRCPHeaderFieldAdd(field *toolkit.AptHeaderField, pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPHeaderFieldAdd(field *toolkit.AptHeaderField) error {
 	return nil
 }
 
 /** Set (copy) MRCP header fields */
-func (header *MRCPMessageHeader) MRCPHeaderFieldsSet(srcHeader *MRCPMessageHeader, pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPHeaderFieldsSet(srcHeader *MRCPMessageHeader) error {
 	return nil
 }
 
 /** Get (copy) MRCP header fields */
-func (header *MRCPMessageHeader) MRCPHeaderFieldsGet(srcHeader, maskHeader *MRCPMessageHeader, pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPHeaderFieldsGet(srcHeader, maskHeader *MRCPMessageHeader) error {
 	return nil
 }
 
 /** Inherit (copy) MRCP header fields */
-func (header *MRCPMessageHeader) MRCPHeaderFieldsInherit(srcHeader *MRCPMessageHeader, pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPHeaderFieldsInherit(srcHeader *MRCPMessageHeader) error {
 	return nil
 }
 
 /** Parse MRCP header fields */
-func (header *MRCPMessageHeader) MRCPHeaderFieldsParse(pool *memory.AprPool) error {
+func (header *MRCPMessageHeader) MRCPHeaderFieldsParse() error {
 	return nil
 }
 
@@ -73,7 +73,7 @@ func MRCPChannelIdInit(channelId *MRCPChannelId) {
 }
 
 /** Parse MRCP channel-identifier */
-func (cid *MRCPChannelId) MRCPChannelIdParse(header *MRCPMessageHeader, pool *memory.AprPool) error {
+func (cid *MRCPChannelId) MRCPChannelIdParse(header *MRCPMessageHeader) error {
 	return nil
 }
 

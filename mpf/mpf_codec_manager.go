@@ -2,7 +2,6 @@ package mpf
 
 import (
 	"github.com/navi-tt/go-mrcp/apr"
-	"github.com/navi-tt/go-mrcp/apr/memory"
 )
 
 /**
@@ -12,9 +11,9 @@ import (
 
 /** Opaque codec manager declaration */
 type CodecManager struct {
-	pool *memory.AprPool // Memory pool
+	// Memory pool
 
-	CodecArr []apr.AprArrayHeader // Dynamic (resizable) array of codecs (mpf_codec_t*
+	CodecArr []apr.ArrayHeader // Dynamic (resizable) array of codecs (mpf_codec_t*
 
 	EventDescriptor *CodecDescriptor // Default named event descriptor
 }

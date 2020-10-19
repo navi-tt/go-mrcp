@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/message"
 )
@@ -32,7 +31,7 @@ func MRCPEngineVirtualClose(e *MRCPEngine) error {
 }
 
 /** Create engine channel */
-func MRCPEngineChannelVirtualCreate(engine *MRCPEngine, version mrcp.Version, pool *memory.AprPool) *MRCPEngineChannel {
+func MRCPEngineChannelVirtualCreate(engine *MRCPEngine, version mrcp.Version) *MRCPEngineChannel {
 	return nil
 }
 
@@ -72,6 +71,6 @@ func MRCPEngineChannelRequestProcess(channel *MRCPEngineChannel, message *messag
 }
 
 /** Allocate engine config */
-func MRCPEngineConfigAlloc(pool *memory.AprPool) *MRCPEngineConfig {
+func MRCPEngineConfigAlloc() *MRCPEngineConfig {
 	return &MRCPEngineConfig{}
 }

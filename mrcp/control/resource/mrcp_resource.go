@@ -24,7 +24,7 @@ type MRCPResource struct {
 }
 
 /** Initialize MRCP resource */
-func MRCPResourceCreate(pool *memory.AprPool) *MRCPResource {
+func MRCPResourceCreate() *MRCPResource {
 	resource := MRCPResource{
 		Id:                      0,
 		Name:                    "",
