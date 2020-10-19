@@ -12,7 +12,7 @@ type MRCPResourceLoader struct {
 }
 
 /** Create MRCP resource loader */
-func MRCPResourceLoaderCreate(loadAll bool, pool *memory.AprPool) *MRCPResourceLoader {
+func MRCPResourceLoaderCreate(loadAll bool) *MRCPResourceLoader {
 	return nil
 }
 

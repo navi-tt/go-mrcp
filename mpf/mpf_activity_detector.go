@@ -1,9 +1,8 @@
 package mpf
 
-import "github.com/navi-tt/go-mrcp/apr/memory"
-
 /** Detector states */
 type DetectorState = int
+
 const (
 	DETECTOR_STATE_INACTIVITY            DetectorState = iota /**< inactivity detected */
 	DETECTOR_STATE_ACTIVITY_TRANSITION                        /**< activity detection is in-progress */
@@ -13,6 +12,7 @@ const (
 
 /** Events of activity detector */
 type DetectorEvent = int
+
 const (
 	MPF_DETECTOR_EVENT_NONE       DetectorEvent = iota /**< no event occurred */
 	MPF_DETECTOR_EVENT_ACTIVITY                        /**< voice activity (transition to activity from inactivity state) */
@@ -39,7 +39,7 @@ type ActivityDetector struct {
 }
 
 /** Create activity detector */
-func ActivityDetectorCreate(pool *memory.AprPool) *ActivityDetector {
+func ActivityDetectorCreate() *ActivityDetector {
 	return &ActivityDetector{}
 }
 
@@ -64,6 +64,6 @@ func (ad *ActivityDetector) ActivityDetectorSpeechTimeoutSet(speechTimeout int64
 func (ad *ActivityDetector) ActivityDetectorSilenceTimeoutSet(silenceTimeout int64) {}
 
 /** Process current frame return detected event if any */
-func (ad *ActivityDetector) ActivityDetectorProcess(frame *Frame)DetectorEvent{
+func (ad *ActivityDetector) ActivityDetectorProcess(frame *Frame) DetectorEvent {
 	return 0
 }

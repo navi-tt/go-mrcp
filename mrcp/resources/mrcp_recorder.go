@@ -138,6 +138,6 @@ func MRCPRecorderCompletionCauseGet(cause MRCPRecorderCompletionCause, v mrcp.Ve
 }
 
 /** Create MRCP recorder resource */
-func MRCPRecorderResourceCreate(pool *memory.AprPool) *resource.MRCPResource {
+func MRCPRecorderResourceCreate() *resource.MRCPResource {
 	return nil
 }

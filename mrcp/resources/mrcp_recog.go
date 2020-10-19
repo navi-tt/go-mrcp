@@ -286,6 +286,6 @@ func MRCPRecognizerCompletionCauseGet(cause MRCPRecognizerCompletionCause, v mrc
 }
 
 /** Create MRCP recognizer resource */
-func MRCPRecognizerResourceCreate(pool *memory.AprPool) *resource.MRCPResource {
+func MRCPRecognizerResourceCreate() *resource.MRCPResource {
 	return nil
 }

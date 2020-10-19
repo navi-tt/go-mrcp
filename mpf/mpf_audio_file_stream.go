@@ -1,13 +1,11 @@
 package mpf
 
-import "github.com/navi-tt/go-mrcp/apr/memory"
-
 /**
  * Create file stream.
  * @param termination the back pointer to hold
  * @param pool the pool to allocate memory from
  */
-func FileStreamCreate(termination *Termination, pool *memory.AprPool) *AudioStream {
+func FileStreamCreate(termination *Termination) *AudioStream {
 	return nil
 }
 

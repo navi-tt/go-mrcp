@@ -2,7 +2,6 @@ package engine
 
 import (
 	"container/list"
-	"github.com/navi-tt/go-mrcp/apr/memory"
 )
 
 /** Engine loader declaration */
@@ -10,11 +9,11 @@ type MRCPEngineLoader struct {
 	/** Table of plugins (apr_dso_handle_t*) */
 	pluginsList *list.List
 	pluginsMap  map[string]*list.Element
-	pool        *memory.AprPool
+	//pool        *memory.AprPool
 }
 
 /** Create engine loader */
-func MRCPEngineLoaderCreate(pool *memory.AprPool) *MRCPEngineLoader {
+func MRCPEngineLoaderCreate() *MRCPEngineLoader {
 	return &MRCPEngineLoader{}
 }
 

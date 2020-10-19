@@ -8,16 +8,16 @@ import (
 /** MRCP header accessor interface */
 type MRCPHeaderVTable struct {
 	/** Allocate actual header data */
-	Allocate func(accessor *MRCPHeaderAccessor, pool *memory.AprPool) interface{}
+	Allocate func(accessor *MRCPHeaderAccessor) interface{}
 	/** Destroy header data */
 	Destroy func(accessor *MRCPHeaderAccessor)
 
 	/** Parse header field value */
-	ParseField func(accessor *MRCPHeaderAccessor, id int64, value string, pool *memory.AprPool) bool
+	ParseField func(accessor *MRCPHeaderAccessor, id int64, value string) bool
 	/** Generate header field value */
-	GenerateField func(accessor *MRCPHeaderAccessor, id int64, value string, pool *memory.AprPool) bool
+	GenerateField func(accessor *MRCPHeaderAccessor, id int64, value string) bool
 	/** Duplicate header field value */
-	DuplicateField func(accessor *MRCPHeaderAccessor, src *MRCPHeaderAccessor, id int64, value string, pool *memory.AprPool) bool
+	DuplicateField func(accessor *MRCPHeaderAccessor, src *MRCPHeaderAccessor, id int64, value string) bool
 
 	FieldTable map[string]string // Table of fields
 	//FieldCount int64             // Number of fields
@@ -59,7 +59,7 @@ func MRCPHeaderAccessorInit(accessor *MRCPHeaderAccessor) {
 }
 
 /** Allocate header data */
-func MRCPHeaderAllocate(accessor *MRCPHeaderAccessor, pool *memory.AprPool) interface{} {
+func MRCPHeaderAllocate(accessor *MRCPHeaderAccessor) interface{} {
 	if accessor.Data != nil {
 		return accessor.Data
 	}
@@ -78,16 +78,16 @@ func MRCPHeaderDestroy(accessor *MRCPHeaderAccessor) {
 }
 
 /** Parse header field value */
-func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueParse(field *toolkit.AptHeaderField, pool *memory.AprPool) error {
+func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueParse(field *toolkit.AptHeaderField) error {
 	return nil
 }
 
 /** Generate header field value */
-func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueGenerate(id int64, emptyValue bool, pool *memory.AprPool) *toolkit.AptHeaderField {
+func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueGenerate(id int64, emptyValue bool) *toolkit.AptHeaderField {
 	return nil
 }
 
 /** Duplicate header field value */
-func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueDuplicate(srcAccessor *MRCPHeaderAccessor, id int64, pool *memory.AprPool) (value string, err error) {
+func (a *MRCPHeaderAccessor) MRCPHeaderFieldValueDuplicate(srcAccessor *MRCPHeaderAccessor, id int64) (value string, err error) {
 	return "", nil
 }
