@@ -1,7 +1,6 @@
 package header
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
