@@ -15,8 +15,7 @@ type Buffer struct {
 	CurChunk           *Chunk
 	RemainingChunkSize int64
 	guard              sync.Mutex
-	//pool               *memory.AprPool
-	size int64 /* total size */
+	size               int64 // total size
 }
 
 /** Create buffer */
