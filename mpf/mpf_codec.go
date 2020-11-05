@@ -2,7 +2,6 @@ package mpf
 
 import (
 	"bytes"
-	"github.com/navi-tt/go-mrcp/apr/memory"
 )
 
 /** Codec */

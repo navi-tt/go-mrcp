@@ -127,6 +127,48 @@ func CodecListCopy(c *CodecList, srcCodecList *CodecList) {
 	c.DescriptorArr = apr.ArrayCopy(srcCodecList.DescriptorArr)
 }
 
+func CodecListsCompare(codecList1, codecList2 *CodecList) bool {
+	var (
+		exit                     = false
+		descriptor1, descriptor2 *CodecDescriptor
+		i, j                     int
+	)
+
+	for !exit {
+		for i < codecList1.DescriptorArr.Stack.Size() {
+			descriptor1 = codecList1.DescriptorArr.Stack.Index(i).(*CodecDescriptor)
+			if descriptor1.Enabled {
+				break
+			}
+			i++
+		}
+		for j < codecList2.DescriptorArr.Stack.Size() {
+			descriptor2 = codecList1.DescriptorArr.Stack.Index(j).(*CodecDescriptor)
+			if descriptor2.Enabled {
+				break
+			}
+			j++
+		}
+
+		if i < codecList1.DescriptorArr.Stack.Size() && j < codecList2.DescriptorArr.Stack.Size() {
+			if !CodecDescriptorsMatch(descriptor1, descriptor2) {
+				return false
+			}
+
+			i++
+			j++
+		} else {
+			exit = true
+		}
+	}
+
+	if i != codecList1.DescriptorArr.Stack.Size() || j != codecList2.DescriptorArr.Stack.Size() {
+		return false
+	}
+
+	return true
+}
+
 /** Increment number of codec descriptors in the list and return the descriptor to fill */
 func CodecListAdd(c *CodecList) *CodecDescriptor {
 	descriptor := &CodecDescriptor{}

@@ -14,7 +14,43 @@ const (
 /** Stream capabilities */
 type StreamCapabilities struct {
 	/** Supported directions either send, receive or bidirectional stream (bitmask of mpf_stream_direction_e) */
-	//mpf_stream_direction_e   direction;
+	direction StreamDirection
 	/** Codec capabilities (supported codecs and named events) */
-	//mpf_codec_capabilities_t codecs;
+	codecs CodecCapabilities
+}
+
+/** Create stream capabilities */
+func StreamCapabilitiesCreate(directions StreamDirection) *StreamCapabilities {
+	return nil
+}
+
+/** Create source stream capabilities */
+func SourceStreamCapabilitiesCreate() *StreamCapabilities {
+	return StreamCapabilitiesCreate(STREAM_DIRECTION_RECEIVE)
+}
+
+/** Create sink stream capabilities */
+func SinkStreamCapabilitiesCreate() *StreamCapabilities {
+	return StreamCapabilitiesCreate(STREAM_DIRECTION_SEND)
+}
+
+/** Clone stream capabilities */
+func StreamCapabilitiesClone(srcCapabilities *StreamCapabilities) *StreamCapabilities {
+	return nil
+}
+
+/** Merge stream capabilities */
+func StreamCapabilitiesMerge(capabilities, srcCapabilities *StreamCapabilities) error {
+	return nil
+}
+
+/** Get reverse direction */
+func StreamReverseDirectionGet(direction StreamDirection) StreamDirection {
+	revDirection := direction
+	if revDirection == STREAM_DIRECTION_SEND {
+		revDirection = STREAM_DIRECTION_RECEIVE
+	} else if revDirection == STREAM_DIRECTION_RECEIVE {
+		revDirection = STREAM_DIRECTION_SEND
+	}
+	return revDirection
 }

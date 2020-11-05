@@ -1,1 +1,5 @@
 github.com/eapache/queue v1.1.0/go.mod h1:6eCeP0CKFpHLu8blIFXhExK/dRa7WDZfr6jVFPTqq+I=
+github.com/funny/binary v0.0.0-20151214134736-b048dcb0f179 h1:i+sPtS01ifIDV7EP+GJMwqermatkNjzgDbEzYhv36IY=
+github.com/funny/binary v0.0.0-20151214134736-b048dcb0f179/go.mod h1:0NTmabtiIl9h02d11pe02xPTFvnH5K56lrE0cpeq3eI=
+github.com/funny/utest v0.0.0-20161029064919-43870a374500 h1:Z0r1CZnoIWFB/Uiwh1BU5FYmuFe6L5NPi6XWQEmsTRg=
+github.com/funny/utest v0.0.0-20161029064919-43870a374500/go.mod h1:mUn39tBov9jKnTWV1RlOYoNzxdBFHiSzXWdY1FoNGGg=
