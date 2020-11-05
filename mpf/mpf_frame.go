@@ -1,7 +1,7 @@
 package mpf
 
 /** Media frame types */
-type FrameType = byte
+type FrameType = int
 
 const (
 	MEDIA_FRAME_TYPE_NONE  FrameType = 0x0 /**< none */
@@ -29,5 +29,5 @@ type Frame struct {
 	/** codec frame */
 	CodecFrame CodecFrame
 	/** named-event frame */
-	//mpf_named_event_frame_t event_frame;
+	EventFrame NamedEventFrame
 }
