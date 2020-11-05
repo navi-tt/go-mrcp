@@ -1,7 +1,6 @@
 package engine
 
 import (
-	"github.com/navi-tt/go-mrcp/apr"
 	"github.com/navi-tt/go-mrcp/mpf"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/message"
@@ -91,6 +90,6 @@ type MRCPEngine struct {
 /** MRCP engine config */
 type MRCPEngineConfig struct {
 	MaxChannelCount int64         // Max number of simultaneous channels
-	Params          *apr.AprTable // Table of name/value string params todo(map[string]string ???)
-	//Params        map[string]string // Table of name/value string params
+	//Params          *apr.AprTable // Table of name/value string params todo(map[string]string ???)
+	Params        map[string]string // Table of name/value string params
 }

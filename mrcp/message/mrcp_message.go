@@ -1,7 +1,6 @@
 package message
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/control/resource"
 	"github.com/navi-tt/go-mrcp/mrcp/message/header"
@@ -16,7 +15,7 @@ type MRCPMessage struct {
 	Body      string                   // Body of MRCP message
 
 	Resource resource.MRCPResource // Associated MRCP resource
-	pool     *memory.AprPool       //  Memory pool to allocate memory from
+	//pool     *memory.AprPool       //  Memory pool to allocate memory from
 }
 
 /**
@@ -95,7 +94,7 @@ func (m *MRCPMessage) MRCPGenericHeaderGet() *header.MRCPGenericHeader {
  * @param message the message to prepare generic header for
  */
 func (m *MRCPMessage) MRCPGenericHeaderPrepare() *header.MRCPGenericHeader {
-	return header.MRCPHeaderAllocate(&m.Header.GenericHeaderAccessor, m.pool).(*header.MRCPGenericHeader)
+	return header.MRCPHeaderAllocate(&m.Header.GenericHeaderAccessor).(*header.MRCPGenericHeader)
 }
 
 /**
@@ -152,7 +151,7 @@ func (m *MRCPMessage) MRCPResourceHeaderGet() interface{} {
  * @param message the message to prepare resource header for
  */
 func (m *MRCPMessage) MRCPResourceHeaderPrepare() interface{} {
-	return header.MRCPHeaderAllocate(&m.Header.ResourceHeaderAccessor, m.pool)
+	return header.MRCPHeaderAllocate(&m.Header.ResourceHeaderAccessor)
 }
 
 /**
@@ -202,7 +201,7 @@ func (m *MRCPMessage) MRCPResourceHeaderPropertyCheck(id int64) bool {
  * @param header_field the header field to add
  */
 func (m *MRCPMessage) MRCPMessageHeaderFieldAdd(headerField *toolkit.AptHeaderField) error {
-	return m.Header.MRCPHeaderFieldAdd(headerField, m.pool)
+	return m.Header.MRCPHeaderFieldAdd(headerField)
 }
 
 /**

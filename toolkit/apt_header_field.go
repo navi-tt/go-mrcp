@@ -2,11 +2,10 @@ package toolkit
 
 import (
 	"container/list"
-	"container/ring"
 )
 
 type AptHeaderField struct {
-	Link  *ring.Ring // Ring entry
+	Link  *list.List // Ring entry
 	Name  string     // Name of the header field
 	Value string     // Value of the header field
 	Id    int64      // Numeric identifier associated with name

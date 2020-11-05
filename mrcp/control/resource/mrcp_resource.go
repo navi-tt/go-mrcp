@@ -1,7 +1,6 @@
 package resource
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 	"github.com/navi-tt/go-mrcp/mrcp/message/header"
 	"github.com/navi-tt/go-mrcp/toolkit"

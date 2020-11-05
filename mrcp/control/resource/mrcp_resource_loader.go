@@ -1,14 +1,13 @@
 package resource
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp"
 )
 
 /** Resource loader */
 type MRCPResourceLoader struct {
 	factory *MRCPResourceFactory
-	pool    *memory.AprPool
+
 }
 
 /** Create MRCP resource loader */

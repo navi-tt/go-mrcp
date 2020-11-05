@@ -1,7 +1,6 @@
 package control
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/mrcp/control/resource"
 	"github.com/navi-tt/go-mrcp/mrcp/message"
 	"github.com/navi-tt/go-mrcp/toolkit"
@@ -15,7 +14,7 @@ type MRCPParser struct {
 }
 
 /** Create MRCP stream parser */
-func MRCPParserCreate(f *resource.MRCPResourceFactory, p *memory.AprPool) *MRCPParser {
+func MRCPParserCreate(f *resource.MRCPResourceFactory) *MRCPParser {
 	return &MRCPParser{}
 }
 
@@ -41,7 +40,7 @@ type MRCPGenerator struct {
 }
 
 /** Create MRCP stream generator */
-func MRCPGeneratorCreate(f *resource.MRCPResourceFactory, p *memory.AprPool) *MRCPGenerator {
+func MRCPGeneratorCreate(f *resource.MRCPResourceFactory) *MRCPGenerator {
 	return &MRCPGenerator{}
 }
 
