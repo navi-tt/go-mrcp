@@ -9,7 +9,7 @@ const (
 )
 
 /** Enumeration of MRCP resource types */
-type MRCPResourceType = int
+type MRCPResourceType = int64
 
 const (
 	MRCP_SYNTHESIZER_RESOURCE MRCPResourceType = iota /**< Synthesizer resource */
@@ -27,4 +27,4 @@ type MRCPRequestId = uint32
 type MRCPMethodId = int64
 
 /** Resource identifier associated with resource name */
-type MRCPResourceId = int
+type MRCPResourceId = int64

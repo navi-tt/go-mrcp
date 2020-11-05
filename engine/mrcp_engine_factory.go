@@ -7,11 +7,6 @@ import (
 	"github.com/navi-tt/go-mrcp/mrcp"
 )
 
-/**
- * @Author: Liu xiangpeng
- * @Date: 2020/10/17 5:13 下午
- */
-
 /** Engine factory declaration */
 type MRCPEngineFactory struct {
 	/* C:apr_hash_t -> Go:map+list, key 用engine的Id */

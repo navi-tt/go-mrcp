@@ -5,11 +5,6 @@ import (
 	"github.com/navi-tt/go-mrcp/mrcp/message"
 )
 
-/**
- * @Author: Liu xiangpeng
- * @Date: 2020/10/17 5:47 下午
- */
-
 /** Destroy engine */
 func MRCPEngineVirtualDestroy(e *MRCPEngine) error {
 	return nil

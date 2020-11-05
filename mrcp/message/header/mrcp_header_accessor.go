@@ -1,7 +1,6 @@
 package header
 
 import (
-	"github.com/navi-tt/go-mrcp/apr/memory"
 	"github.com/navi-tt/go-mrcp/toolkit"
 )
 
@@ -66,7 +65,7 @@ func MRCPHeaderAllocate(accessor *MRCPHeaderAccessor) interface{} {
 	if accessor.VTable == nil || accessor.VTable.Allocate == nil {
 		return nil
 	}
-	return accessor.VTable.Allocate(accessor, pool)
+	return accessor.VTable.Allocate(accessor)
 }
 
 /** Destroy header data */
