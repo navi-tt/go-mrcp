@@ -3,6 +3,7 @@ package mpf
 import "github.com/navi-tt/go-mrcp/toolkit"
 
 /** Table of audio stream virtual methods */
+//todo(可以改成interface接口)
 type AudioStreamVTable struct {
 
 	/** Virtual destroy method */

@@ -6,6 +6,6 @@ package mpf
  * @param sink the sink stream to resample to
  * @param pool the pool to allocate memory from
  */
-func ReSamplerCreate(source *AudioStream, sink *AudioStream) *AudioStream {
-	return nil
+func ReSamplerCreate(source *AudioStream, sink *AudioStream) (*AudioStream, error) {
+	return nil, nil
 }
