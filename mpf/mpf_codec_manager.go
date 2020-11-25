@@ -32,8 +32,8 @@ func (cm *CodecManager) CodecManagerCodecRegister(codec *Codec) error {
 }
 
 /** Get (allocate) codec by codec descriptor */
-func (cm *CodecManager) CodecManagerCodecGet(descriptor *CodecDescriptor) *Codec {
-	return nil
+func (cm *CodecManager) CodecManagerCodecGet(descriptor *CodecDescriptor) (*Codec, error) {
+	return &Codec{}, nil
 }
 
 /** Get (allocate) list of available codecs */
