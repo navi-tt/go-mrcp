@@ -32,8 +32,8 @@ func EventDescriptorCreate(samplingRate uint16) *CodecDescriptor {
 }
 
 /** Check whether the specified descriptor is named event one */
-func EventDescriptorCheck(descriptor *CodecDescriptor) error {
-	return nil
+func EventDescriptorCheck(descriptor *CodecDescriptor) bool {
+	return false
 }
 
 /** Convert DTMF character to event identifier */

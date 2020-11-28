@@ -2,6 +2,7 @@ package mpf
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -55,14 +56,18 @@ func AudioFileFrameRead(as *AudioStream, frame *Frame) error {
 
 	// todo(应该是按frame一帧一帧来读吧, 这里先一次性读完处理, 等确认frame一帧是多长再来改)
 	if fileStream.readHandle != nil && !fileStream.eof {
-		_, err := frame.CodecFrame.Buffer.ReadFrom(fileStream.readHandle)
+		n, err := io.CopyN(frame.CodecFrame.Buffer, fileStream.readHandle, frame.CodecFrame.Size)
+		//n, err := frame.CodecFrame.Buffer.ReadFrom(fileStream.readHandle)
 		if err != nil {
 			return err
 		}
-
-		frame.Type = MEDIA_FRAME_TYPE_AUDIO
-		fileStream.eof = true
-		return AudioFileEventRaise(as, 0, nil)
+		// 刚好读了1个frame帧
+		if n == frame.CodecFrame.Size {
+			frame.Type = MEDIA_FRAME_TYPE_AUDIO
+		} else {
+			fileStream.eof = true
+			return AudioFileEventRaise(as, 0, nil)
+		}
 	}
 	return nil
 }
@@ -82,7 +87,8 @@ func AudioFileFrameWrite(as *AudioStream, frame *Frame) error {
 	}
 	if fileStream.writeHandle != nil &&
 		(fileStream.maxWriteSize > 0 || fileStream.curWriteSize < fileStream.maxWriteSize) {
-		n, err := frame.CodecFrame.Buffer.WriteTo(fileStream.writeHandle)
+		//n, err := frame.CodecFrame.Buffer.WriteTo(fileStream.writeHandle)
+		n, err := io.CopyN(fileStream.writeHandle, frame.CodecFrame.Buffer, frame.CodecFrame.Size)
 		if err != nil {
 			return err
 		}

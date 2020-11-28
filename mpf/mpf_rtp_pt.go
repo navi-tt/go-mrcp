@@ -1,7 +1,7 @@
 package mpf
 
 /** RTP payload types */
-type RtpPayloadType = int
+type RtpPayloadType = uint8
 
 const (
 	RTP_PT_PCMU RtpPayloadType = 0 /**< PCMU           Audio 8kHz 1 */

@@ -88,17 +88,21 @@ func (ad *ActivityDetector) ActivityDetectorStateChange(state DetectorState) {
 	ad.State = state
 }
 
-func (ad *ActivityDetector) ActivityDetectorLevelCalculate(frame *Frame) int64 {
+func (ad *ActivityDetector) ActivityDetectorLevelCalculate(frame *Frame) (int64, error) {
 	var (
 		sum   int64 = 0
-		count       = frame.CodecFrame.Buffer.Len() / 2
-		cur         = 0
+		count       = int64(frame.CodecFrame.Size) / 2
+		cur   int64 = 0
 		end         = cur + count
 	)
 	// todo( 从[2]byte读一个int16 )
 	for ; cur < end; cur++ {
 		tmp := make([]byte, 2)
-		_, _ = frame.CodecFrame.Buffer.Read(tmp)
+		_, err := frame.CodecFrame.Buffer.Read(tmp)
+		if err != nil {
+			return 0, err
+		}
+		//frame.CodecFrame.Size = frame.CodecFrame.Buffer.Len()
 		br := bytes.NewReader(tmp)
 		var utt16 int16
 		_ = binary.Read(br, binary.LittleEndian, &utt16)
@@ -110,18 +114,22 @@ func (ad *ActivityDetector) ActivityDetectorLevelCalculate(frame *Frame) int64 {
 		}
 	}
 
-	return sum / int64(count)
+	return sum / count, nil
 }
 
 /** Process current frame return detected event if any */
-func (ad *ActivityDetector) ActivityDetectorProcess(frame *Frame) DetectorEvent {
+func (ad *ActivityDetector) ActivityDetectorProcess(frame *Frame) (DetectorEvent, error) {
 	var (
 		detEvent DetectorEvent = MPF_DETECTOR_EVENT_NONE
 		level    int64         = 0
+		err      error
 	)
 
 	if (frame.Type & MEDIA_FRAME_TYPE_AUDIO) == MEDIA_FRAME_TYPE_AUDIO {
-		level = ad.ActivityDetectorLevelCalculate(frame)
+		level, err = ad.ActivityDetectorLevelCalculate(frame)
+		if err != nil {
+			return detEvent, err
+		}
 	}
 
 	if ad.State == DETECTOR_STATE_INACTIVITY {
@@ -167,5 +175,5 @@ func (ad *ActivityDetector) ActivityDetectorProcess(frame *Frame) DetectorEvent 
 		}
 	}
 
-	return detEvent
+	return detEvent, nil
 }

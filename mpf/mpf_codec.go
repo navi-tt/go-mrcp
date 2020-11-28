@@ -2,6 +2,7 @@ package mpf
 
 import (
 	"bytes"
+	"io"
 )
 
 /** Codec */
@@ -102,9 +103,10 @@ func (c *Codec) CodecDissect(buffer *bytes.Buffer, frame *CodecFrame) error {
 		return c.VTable.Dissect(c, buffer, frame)
 	} else {
 		/* default dissector */
-		if frame.Buffer != nil && frame.Buffer.Len() > 0 && buffer.Len() >= frame.Buffer.Len() {
-			frame.Buffer.Reset()
-			_, err := frame.Buffer.Write(buffer.Bytes())
+		if frame.Buffer != nil && frame.Size > 0 && int64(buffer.Len()) >= frame.Size {
+			//frame.Buffer.Reset()
+			//_, err := frame.Buffer.Write(buffer.Bytes())
+			_, err := io.CopyN(frame.Buffer, buffer, int64(frame.Size))
 			return err
 		}
 	}

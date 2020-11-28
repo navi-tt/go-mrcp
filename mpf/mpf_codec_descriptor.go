@@ -3,16 +3,27 @@ package mpf
 import (
 	"bytes"
 	"github.com/navi-tt/go-mrcp/apr"
+	"strings"
 )
 
 /** Codec frame time base in msec */
 const CODEC_FRAME_TIME_BASE = 10
+
+const LPCM_CODEC_NAME = "LPCM"
+
+const LPCM_CODEC_NAME_LENGTH = len(LPCM_CODEC_NAME) - 1
 
 /** Bytes per sample for linear pcm */
 const BYTES_PER_SAMPLE = 2
 
 /** Bits per sample for linear pcm */
 const BITS_PER_SAMPLE = 16
+
+var lpcmAttribs = CodecAttribs{
+	Name:          LPCM_CODEC_NAME,
+	BitsPerSample: 16,
+	SampleRates:   MPF_SAMPLE_RATE_8000 | MPF_SAMPLE_RATE_16000 | MPF_SAMPLE_RATE_32000 | MPF_SAMPLE_RATE_48000,
+}
 
 /** Supported sampling rates */
 type SampleRates = int
@@ -71,7 +82,26 @@ type CodecFrame struct {
 	/** Raw buffer, which may contain encoded or decoded data */
 	Buffer *bytes.Buffer
 	/** Buffer size */
-	//size int64
+	Size int64
+}
+
+/** Get sampling rate mask (mpf_sample_rate_e) by integer value  */
+func SampleRateMaskGet(samplingRate uint16) int {
+	switch samplingRate {
+	case 8000:
+		return MPF_SAMPLE_RATE_8000
+	case 16000:
+		return MPF_SAMPLE_RATE_16000
+	case 32000:
+		return MPF_SAMPLE_RATE_32000
+	case 48000:
+		return MPF_SAMPLE_RATE_48000
+	}
+	return MPF_SAMPLE_RATE_NONE
+}
+
+func SamplingRateCheck(samplingRate uint16, mask int) bool {
+	return SampleRateMaskGet(samplingRate)&mask > 0
 }
 
 /** Initialize codec descriptor */
@@ -196,27 +226,117 @@ func (c *CodecList) CodecListDescriptorGet(id int) *CodecDescriptor {
 
 /** Create linear PCM descriptor */
 func CodecLPcmDescriptorCreate(samplingRate uint16, channelCount uint8) *CodecDescriptor {
+	var descriptor = CodecDescriptorCreate()
+	descriptor.PayloadType = uint8(RTP_PT_UNKNOWN)
+	descriptor.Name = lpcmAttribs.Name
+	descriptor.SamplingRate = samplingRate
+	descriptor.ChannelCount = channelCount
 	return nil
 }
 
 /** Create codec descriptor by capabilities */
 func CodecDescriptorCreateByCapabilities(capabilities *CodecCapabilities, peer *CodecDescriptor) *CodecDescriptor {
-	return nil
+	var (
+		descriptor *CodecDescriptor
+		attribs    *CodecAttribs
+	)
+
+	if capabilities != nil && peer != nil {
+		attribs = CodecCapabilitiesAttribsFind(capabilities, peer)
+	}
+
+	if attribs == nil || peer == nil || capabilities == nil {
+		return CodecLPcmDescriptorCreate(8000, 1)
+	}
+
+	descriptor = &CodecDescriptor{
+		PayloadType:  peer.PayloadType,
+		Name:         peer.Name,
+		SamplingRate: peer.SamplingRate,
+		ChannelCount: peer.ChannelCount,
+		Format:       peer.Format,
+		Enabled:      peer.Enabled,
+	}
+
+	if !strings.EqualFold(peer.Name, attribs.Name) {
+		descriptor.PayloadType = RTP_PT_UNKNOWN
+		descriptor.Name = attribs.Name
+	}
+	return descriptor
 }
 
 /** Match two codec descriptors */
 func CodecDescriptorsMatch(descriptor1, descriptor2 *CodecDescriptor) bool {
-	return false
+	var match bool
+	if descriptor1.PayloadType < RTP_PT_DYNAMIC && descriptor2.PayloadType < RTP_PT_DYNAMIC {
+		if descriptor1.PayloadType == descriptor2.PayloadType {
+			match = true
+		}
+	} else {
+		if strings.EqualFold(descriptor1.Name, descriptor2.Name) {
+			if descriptor1.SamplingRate == descriptor2.SamplingRate && descriptor1.ChannelCount == descriptor2.ChannelCount {
+				match = true
+			}
+		}
+	}
+	return match
 }
 
 /** Match specified codec descriptor and the default lpcm one */
 func CodecLPcmDescriptorMatch(descriptor *CodecDescriptor) bool {
-	return false
+	return strings.EqualFold(descriptor.Name, lpcmAttribs.Name)
+}
+
+/** Add default (linear PCM) capabilities */
+func CodecDefaultCapabilitiesAdd(capabilities *CodecCapabilities) {
+	capabilities.CodecCapabilitiesAdd(MPF_SAMPLE_RATE_8000, lpcmAttribs.Name)
 }
 
 /** Match codec descriptor by attribs specified */
 func CodecDescriptorMatchByAttribs(descriptor, staticDescriptor *CodecDescriptor, attribs *CodecAttribs) bool {
-	return false
+	var match bool
+	if descriptor.PayloadType < RTP_PT_DYNAMIC {
+		if staticDescriptor != nil && staticDescriptor.PayloadType == descriptor.PayloadType {
+			descriptor.Name = staticDescriptor.Name
+			descriptor.SamplingRate = staticDescriptor.SamplingRate
+			descriptor.ChannelCount = staticDescriptor.ChannelCount
+			match = true
+		}
+	} else {
+		if strings.EqualFold(attribs.Name, descriptor.Name) {
+			if SamplingRateCheck(descriptor.SamplingRate, attribs.SampleRates) {
+				match = true
+			}
+		}
+	}
+	return match
+}
+
+/** Find matched descriptor in codec list */
+func CodecListDescriptorFind(codecList *CodecList, descriptor *CodecDescriptor) *CodecDescriptor {
+	var (
+		matchedDescriptor *CodecDescriptor
+	)
+
+	for i := 0; i < codecList.DescriptorArr.Stack.Size(); i++ {
+		matchedDescriptor = codecList.DescriptorArr.ArrayHeaderIndex(i).(*CodecDescriptor)
+		if CodecDescriptorsMatch(descriptor, matchedDescriptor) {
+			return matchedDescriptor
+		}
+	}
+	return nil
+}
+
+/** Find matched attribs in codec capabilities by descriptor specified */
+func CodecCapabilitiesAttribsFind(capabilities *CodecCapabilities, descriptor *CodecDescriptor) *CodecAttribs {
+	var attribs *CodecAttribs
+	for i := 0; i < capabilities.AttribArr.Stack.Size(); i++ {
+		attribs = capabilities.AttribArr.ArrayHeaderIndex(i).(*CodecAttribs)
+		if SamplingRateCheck(descriptor.SamplingRate, attribs.SampleRates) {
+			return attribs
+		}
+	}
+	return nil
 }
 
 /** Initialize codec capabilities */
@@ -267,20 +387,140 @@ func (c *CodecList) CodecListDescriptorFind(descriptor *CodecDescriptor) *CodecD
 
 /** Match codec list with specified capabilities */
 func (c *CodecList) CodecListMatch(capabilities *CodecCapabilities) bool {
-	return false
+	var (
+		descriptor *CodecDescriptor
+		status     bool
+	)
+	if capabilities == nil {
+		return false
+	}
+	for i := 0; i < c.DescriptorArr.Stack.Size(); i++ {
+		descriptor = c.DescriptorArr.ArrayHeaderIndex(i).(*CodecDescriptor)
+		if !descriptor.Enabled {
+			continue
+		}
+		if CodecCapabilitiesAttribsFind(capabilities, descriptor) != nil {
+			status = true
+		} else {
+			descriptor.Enabled = false
+		}
+	}
+
+	return status
 }
 
 /** Intersect two codec lists */
 func (cl *CodecList) CodecListsIntersect(c *CodecList) bool {
-	return false
+	var descriptor1, descriptor2 *CodecDescriptor
+	cl.PrimaryDescriptor = nil
+	cl.EventDescriptor = nil
+	c.PrimaryDescriptor = nil
+	c.EventDescriptor = nil
+
+	/* find only one match for primary and named event descriptors,
+	set the matched descriptors as preferred, disable the others */
+	for i := 0; i < cl.DescriptorArr.Stack.Size(); i++ {
+		descriptor1 = cl.DescriptorArr.ArrayHeaderIndex(i).(*CodecDescriptor)
+		if descriptor1.Enabled == false {
+			/* this descriptor has been already disabled, process only enabled ones */
+			continue
+		}
+
+		/* check whether this is a named event descriptor */
+
+		if EventDescriptorCheck(descriptor1) {
+			/* named event descriptor */
+			if cl.EventDescriptor != nil {
+				/* named event descriptor has been already set, disable this one */
+				descriptor1.Enabled = false
+			} else {
+				/* find if there is a match */
+				descriptor2 = CodecListDescriptorFind(c, descriptor1)
+				if descriptor2 != nil && descriptor2.Enabled {
+					descriptor1.Enabled = true
+					cl.EventDescriptor = descriptor1
+					c.EventDescriptor = descriptor2
+				} else {
+					/* no match found, disable this descriptor */
+					descriptor1.Enabled = false
+				}
+			}
+		} else {
+			/* primary descriptor */
+			if cl.PrimaryDescriptor != nil {
+				/* primary descriptor has been already set, disable this one */
+				descriptor1.Enabled = false
+			} else {
+				/* find if there is a match */
+				descriptor2 = CodecListDescriptorFind(c, descriptor1)
+				if descriptor2 != nil && descriptor2.Enabled {
+					descriptor1.Enabled = true
+					cl.PrimaryDescriptor = descriptor1
+					c.PrimaryDescriptor = descriptor2
+				} else {
+					/* no match found, disable this descriptor */
+					descriptor1.Enabled = false
+				}
+			}
+		}
+	}
+
+	for i := 0; i < c.DescriptorArr.Stack.Size(); i++ {
+		descriptor2 = c.DescriptorArr.ArrayHeaderIndex(i).(*CodecDescriptor)
+		if descriptor2 == c.PrimaryDescriptor || descriptor2 == c.EventDescriptor {
+			descriptor2.Enabled = true
+		} else {
+			descriptor2.Enabled = false
+		}
+	}
+
+	/* if primary descriptor is disabled or not set, return false */
+	if cl.PrimaryDescriptor == nil || !cl.PrimaryDescriptor.Enabled {
+		return false
+	}
+
+	return true
 }
 
 /** Compare two codec lists */
-func (cl *CodecList) CodecListsCompare(c *CodecList) bool {
-	return false
-}
+func (cl1 *CodecList) CodecListsCompare(cl2 *CodecList) bool {
+	var (
+		exit                     = false
+		descriptor1, descriptor2 *CodecDescriptor
+		i, j                     int
+	)
 
-/** Get sampling rate mask (mpf_sample_rate_e) by integer value  */
-func SampleRateMaskGet(samplingRate uint16) int {
-	return 0
+	for !exit {
+		for i < cl1.DescriptorArr.Stack.Size() {
+			descriptor1 = cl1.DescriptorArr.ArrayHeaderIndex(i).(*CodecDescriptor)
+			if descriptor1.Enabled {
+				break
+			}
+			i++
+		}
+
+		for j < cl2.DescriptorArr.Stack.Size() {
+			descriptor2 = cl2.DescriptorArr.ArrayHeaderIndex(j).(*CodecDescriptor)
+			if descriptor2.Enabled {
+				break
+			}
+			j++
+		}
+
+		if i < cl1.DescriptorArr.Stack.Size() && j < cl2.DescriptorArr.Stack.Size() {
+			if !CodecDescriptorsMatch(descriptor1, descriptor2) {
+				return false
+			}
+			i++
+			j++
+		} else {
+			exit = true
+		}
+	}
+
+	if i != cl1.DescriptorArr.Stack.Size() || j != cl2.DescriptorArr.Stack.Size() {
+		return false
+	}
+
+	return true
 }
