@@ -106,7 +106,8 @@ func LinearBridgeCreate(source, sink *AudioStream, codecManager *CodecManager, n
 
 	descriptor = source.RXDescriptor
 	frameSize = CodecLinearFrameSizeCalculate(descriptor.SamplingRate, descriptor.ChannelCount)
-	bridge.frame.CodecFrame.Buffer = bytes.NewBuffer(make([]byte, frameSize))
+	bridge.frame.CodecFrame.Buffer = bytes.NewBuffer(make([]byte, 0))
+	bridge.frame.CodecFrame.Size = frameSize
 
 	if err = source.AudioStreamRXOpen(nil); err != nil {
 		return nil, err
@@ -140,7 +141,8 @@ func NullBridgeCreate(source, sink *AudioStream, codecManager *CodecManager, nam
 
 	frameSize = source.RXDescriptor.CodecFrameSizeCalculate(codec.Attribs)
 	bridge.codec = codec
-	bridge.frame.CodecFrame.Buffer = bytes.NewBuffer(make([]byte, frameSize))
+	bridge.frame.CodecFrame.Buffer = bytes.NewBuffer(make([]byte, 0))
+	bridge.frame.CodecFrame.Size = frameSize
 
 	if err = source.AudioStreamRXOpen(nil); err != nil {
 		return nil, err
