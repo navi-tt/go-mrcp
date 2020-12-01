@@ -20,12 +20,12 @@ package engine
 //const (
 //	/** major version
 //	 * Major API changes that could cause compatibility problems for older
-//	 * plugins such as structure size changes.  No binary compatibility is
+//	 * plugins such as structure size changes.  No binaryx compatibility is
 //	 * possible across a change in the major version.
 //	 */
 //	PLUGIN_MAJOR_VERSION = 1
 //	/** minor version
-//	 * Minor API changes that do not cause binary compatibility problems.
+//	 * Minor API changes that do not cause binaryx compatibility problems.
 //	 * Reset to 0 when upgrading PLUGIN_MAJOR_VERSION
 //	 */
 //	PLUGIN_MINOR_VERSION = 5

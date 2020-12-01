@@ -1,6 +1,6 @@
 package mpf
 
-import "github.com/navi-tt/go-mrcp/utils/binary"
+import "github.com/navi-tt/go-mrcp/utils/binaryx"
 
 /** RTCP payload (packet) types */
 type RtcpType = int
@@ -118,7 +118,7 @@ func RtcpHeaderInit(header *RtcpHeader, pt RtcpType) {
 
 func (header *RtcpHeader) RtcpHeaderLengthSet(length int64) {
 	/* htons 主机序转网络序  */
-	header.length = binary.HToNS(uint16(length)/4 - 1)
+	header.length = binaryx.HToNS(uint16(length)/4 - 1)
 }
 
 /**
@@ -132,27 +132,27 @@ func (header *RtcpHeader) RtcpHeaderLengthSet(length int64) {
 */
 
 func RtcpSRHToN(srStat *RtcpSRStat) {
-	srStat.ssrc = binary.HToNL(srStat.ssrc)
-	srStat.ntpSec = binary.HToNL(srStat.ntpSec)
-	srStat.ntpFrac = binary.HToNL(srStat.ntpFrac)
-	srStat.rtpTs = binary.HToNL(srStat.rtpTs)
-	srStat.sentPackets = binary.HToNL(srStat.sentPackets)
-	srStat.sentOctets = binary.HToNL(srStat.sentOctets)
+	srStat.ssrc = binaryx.HToNL(srStat.ssrc)
+	srStat.ntpSec = binaryx.HToNL(srStat.ntpSec)
+	srStat.ntpFrac = binaryx.HToNL(srStat.ntpFrac)
+	srStat.rtpTs = binaryx.HToNL(srStat.rtpTs)
+	srStat.sentPackets = binaryx.HToNL(srStat.sentPackets)
+	srStat.sentOctets = binaryx.HToNL(srStat.sentOctets)
 }
 
 func RtcpSRNToH(srStat *RtcpSRStat) {
-	srStat.ssrc = binary.NToHL(srStat.ssrc)
-	srStat.ntpSec = binary.NToHL(srStat.ntpSec)
-	srStat.ntpFrac = binary.NToHL(srStat.ntpFrac)
-	srStat.rtpTs = binary.NToHL(srStat.rtpTs)
-	srStat.sentPackets = binary.NToHL(srStat.sentPackets)
-	srStat.sentOctets = binary.NToHL(srStat.sentOctets)
+	srStat.ssrc = binaryx.NToHL(srStat.ssrc)
+	srStat.ntpSec = binaryx.NToHL(srStat.ntpSec)
+	srStat.ntpFrac = binaryx.NToHL(srStat.ntpFrac)
+	srStat.rtpTs = binaryx.NToHL(srStat.rtpTs)
+	srStat.sentPackets = binaryx.NToHL(srStat.sentPackets)
+	srStat.sentOctets = binaryx.NToHL(srStat.sentOctets)
 }
 
 func RtcpRRHToN(rrStat *RtcpRRStat) {
-	rrStat.ssrc = binary.HToNL(rrStat.ssrc)
-	rrStat.lastSeq = binary.HToNL(rrStat.lastSeq)
-	rrStat.jitter = binary.HToNL(rrStat.jitter)
+	rrStat.ssrc = binaryx.HToNL(rrStat.ssrc)
+	rrStat.lastSeq = binaryx.HToNL(rrStat.lastSeq)
+	rrStat.jitter = binaryx.HToNL(rrStat.jitter)
 
 	//#if (APR_IS_BIGENDIAN == 0)
 	//rr_stat->lost = ((rr_stat->lost >> 16) & 0x000000ff) |
@@ -162,9 +162,9 @@ func RtcpRRHToN(rrStat *RtcpRRStat) {
 }
 
 func RtcpRRNToH(rrStat *RtcpRRStat) {
-	rrStat.ssrc = binary.NToHL(rrStat.ssrc)
-	rrStat.lastSeq = binary.NToHL(rrStat.lastSeq)
-	rrStat.jitter = binary.NToHL(rrStat.jitter)
+	rrStat.ssrc = binaryx.NToHL(rrStat.ssrc)
+	rrStat.lastSeq = binaryx.NToHL(rrStat.lastSeq)
+	rrStat.jitter = binaryx.NToHL(rrStat.jitter)
 
 	//#if (APR_IS_BIGENDIAN == 0)
 	//rr_stat->lost = ((rr_stat->lost >> 16) & 0x000000ff) |

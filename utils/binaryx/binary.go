@@ -1,4 +1,4 @@
-package binary
+package binaryx
 
 import (
 	"bytes"
@@ -37,7 +37,7 @@ func NToHS(in uint16) uint16 {
 func ByteSliceToInt16Slice(data []byte) ([]int16, error) {
 	var utt16 []int16 = make([]int16, len(data)/2)
 	br := bytes.NewReader(data)
-	//err := binary.Read(br, binary.BigEndian, &utt32)
+	//err := binaryx.Read(br, binaryx.BigEndian, &utt32)
 	err := binary.Read(br, binary.LittleEndian, &utt16)
 	if err != nil {
 		return nil, err

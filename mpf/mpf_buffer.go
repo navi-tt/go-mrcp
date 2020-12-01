@@ -122,7 +122,7 @@ func (buffer *Buffer) BufferFrameRead(mediaFrame *Frame) error {
 			if buffer.CurChunk == nil {
 				break
 			}
-			buffer.RemainingChunkSize = int64(buffer.CurChunk.frame.CodecFrame.Size)
+			buffer.RemainingChunkSize = buffer.CurChunk.frame.CodecFrame.Size
 		}
 
 		dest = &mediaFrame.CodecFrame
@@ -158,8 +158,8 @@ func (buffer *Buffer) BufferFrameRead(mediaFrame *Frame) error {
 	}
 
 	if remainingFrameSize > 0 {
-		//offset := int64(mediaFrame.CodecFrame.Buffer.Len()) - remainingFrameSize
-		//mediaFrame.CodecFrame.Buffer.Write() // todo(这里bytebuffer不需要把多余的置空)
+		//offset := mediaFrame.CodecFrame.Size - remainingFrameSize
+		//mediaFrame.CodecFrame.Buffer.Next()// todo(这里bytebuffer不需要把多余的置空)
 	}
 
 	return nil
